@@ -1,0 +1,29 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  api:
+    image: jono/webbapp
+    restart: always
+    ports:
+        - 8000:8000
+
+  db:
+    container_name: postgress-bapi
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: user
+      POSTGRES_DB: main
+    ports:
+        - 5432:5432
+
+
+  adminer:
+    container_name: adminer-bapi
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
