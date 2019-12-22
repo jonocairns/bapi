@@ -45,7 +45,6 @@ server.route({
 async function start() {
     try {
         await validate();
-        await prepare();
         await server.start()
     } catch (err) {
         console.log(err);
