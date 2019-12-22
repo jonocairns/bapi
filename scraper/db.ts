@@ -1,11 +1,11 @@
 import { Pool, PoolClient } from 'pg';
 
 const pool = new Pool({
-    user: 'user',
-    host: 'host.docker.internal',
-    database: 'main',
-    password: 'example',
-    port: 5432,
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASS,
+    port: Number(process.env.DB_PORT),
 });
 
 export const query = (text: string, params: Array<string>) => pool.query(text, params);

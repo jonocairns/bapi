@@ -1,10 +1,13 @@
 import * as hapi from "@hapi/hapi";
 import { query } from '../scraper/db';
 import { go } from "../scraper/scrapist";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const server: hapi.Server = new hapi.Server({
     host: '0.0.0.0',
-    port: 8000
+    port: process.env.PORT
 });
 
 server.route({
