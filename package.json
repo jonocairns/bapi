@@ -16,7 +16,8 @@
     "typescript": "^3.7.3"
   },
   "scripts": {
-    "start": "nodemon --exec \"ts-node\" ./api/server.ts --watch ./ -e ts --ignore **/*.spec.ts",
+    "start": "node ./dist/api/server.js",    
+    "start:local": "nodemon --exec \"ts-node\" ./api/server.ts --watch ./ -e ts --ignore **/*.spec.ts",
     "start:scraper": "nodemon --exec \"ts-node\" ./scraper/main.ts --watch ./ -e ts --ignore **/*.spec.ts",
     "build": "tsc",
     "test": "echo TODO"
