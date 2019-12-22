@@ -1,5 +1,5 @@
 import { query, trans } from './db';
-import { schema, Status } from './schema';
+import { schema, Status, validate } from './schema';
 import { go } from './scrapist';
 
 console.log('initialising...');
@@ -44,22 +44,6 @@ const cycle = async (seed: Status) => {
             console.log(e);
         }
     }
-}
-
-export const validate = async () => {
-    console.log('validating schema');
-    await Promise.all(schema.map(async s => {
-        console.log(`checking schema ${s.name}`);
-        const tableExistance = await query('SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = $1 AND table_name = $2);', ['public', s.name]);
-        const exists = tableExistance.rows[0].exists;
-        console.log(`schema ${s.name} exists? ${exists}`);
-
-        if (!exists) {
-            await trans(async (client) => {
-                await client.query(`CREATE TABLE ${s.name} (${s.schema.map(s => `${s.column} ${s.type} ${!s.isNull ? 'NOT NULL' : ''}`)})`);
-            });
-        }
-    }));
 }
 
 const init = async () => {

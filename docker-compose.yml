@@ -3,11 +3,11 @@ version: '3.1'
 
 services:
 
-  api:
-    image: jono/webbapp
-    restart: always
-    ports:
-        - 8000:8000
+  # api:
+  #   image: jono/webbapp
+  #   restart: always
+  #   ports:
+  #       - 8000:8000
 
   db:
     container_name: postgress-bapi

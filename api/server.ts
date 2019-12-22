@@ -2,7 +2,7 @@ import * as hapi from "@hapi/hapi";
 import { query } from '../scraper/db';
 import { go } from "../scraper/scrapist";
 import dotenv from 'dotenv';
-import { validate, prepare } from '../scraper/main';
+import { validate } from '../scraper/schema';
 
 dotenv.config();
 

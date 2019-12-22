@@ -1,11 +1,23 @@
 import { Pool, PoolClient } from 'pg';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: Boolean(process.env.DATABASE_SSL),
+    ssl: process.env.DATABASE_SSL === 'true',
 });
 
-export const query = (text: string, params: Array<string>) => pool.query(text, params);
+export const query = async (text: string, params: Array<string>) => {
+    const client = await pool.connect();
+    try {
+        return pool.query(text, params);
+    }   catch (e) {
+        throw e;
+    } finally {
+        client.release();
+    }
+};
 
 export const trans = async (fnc: (client: PoolClient) => void) => {
     const client = await pool.connect()
