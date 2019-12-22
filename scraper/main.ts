@@ -9,7 +9,7 @@ const backoff = 4000;
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, backoff))
 
-const prepare = async () => {
+export const prepare = async () => {
     console.log('fetching existing status...');
     const res = await query('SELECT * FROM status', []);
     const page = 0, index = 0;
@@ -46,7 +46,7 @@ const cycle = async (seed: Status) => {
     }
 }
 
-const validate = async () => {
+export const validate = async () => {
     console.log('validating schema');
     await Promise.all(schema.map(async s => {
         console.log(`checking schema ${s.name}`);

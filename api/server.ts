@@ -2,6 +2,7 @@ import * as hapi from "@hapi/hapi";
 import { query } from '../scraper/db';
 import { go } from "../scraper/scrapist";
 import dotenv from 'dotenv';
+import { validate, prepare } from '../scraper/main';
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const server: hapi.Server = new hapi.Server({
     host: '0.0.0.0',
     port: process.env.PORT
 });
+
 
 server.route({
     method: 'GET',
@@ -42,6 +44,8 @@ server.route({
 
 async function start() {
     try {
+        await validate();
+        await prepare();
         await server.start()
     } catch (err) {
         console.log(err);
